@@ -1,0 +1,27 @@
+{
+  "name": "matrix-transcriptions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "formdata-node": "^6.0.3",
+    "ky": "^1.2.3",
+    "openai": "^4.38.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.7.0",
+    "@types/node": "^20.12.7",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@8.6.12"
+}
