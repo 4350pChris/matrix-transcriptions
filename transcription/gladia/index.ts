@@ -1,9 +1,11 @@
 import { runTranscription } from './transcribe.js'
-import { uploadFile } from './upload.js'
+import { upload } from './upload.js'
 import type { Transcription } from './types/transcription.js'
 
-export async function transcribeAudio(path: string): Promise<Transcription> {
-  const uploadUrl = await uploadFile(path)
+export async function transcribeAudio(
+  ...uploadArgs: Parameters<typeof upload>
+): Promise<Transcription> {
+  const uploadUrl = await upload(...uploadArgs)
   const transcriptionResult = await runTranscription(uploadUrl)
 
   return transcriptionResult.transcription
