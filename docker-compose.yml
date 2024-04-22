@@ -1,0 +1,6 @@
+services:
+  transcriber:
+    image: matrix-transcriber:latest
+    build: .
+    env_file:
+      - .env
