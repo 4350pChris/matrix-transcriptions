@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { transcribeAudio } from './transcription/gladia/index.js'
-import { startClient } from './matrix/client.js'
+import { startClients } from './matrix/client.js'
 import { receiveMessages, sendMessage } from './matrix/messages.js'
 
 async function runMatrixListener() {
@@ -23,8 +23,11 @@ async function runMatrixListener() {
     )
   }
 
-  const userClient = await startClient(MATRIX_USER_ID, MATRIX_USER_ACCESS_TOKEN)
-  const botClient = await startClient(MATRIX_BOT_ID, MATRIX_BOT_ACCESS_TOKEN)
+  const { userClient, botClient } = await startClients({
+    user: { userId: MATRIX_USER_ID, accessToken: MATRIX_USER_ACCESS_TOKEN },
+    bot: { userId: MATRIX_BOT_ID, accessToken: MATRIX_BOT_ACCESS_TOKEN },
+  })
+
   receiveMessages(userClient, async (blob, sender) => {
     try {
       const { transcription, summarization } = await transcribeAudio(blob)

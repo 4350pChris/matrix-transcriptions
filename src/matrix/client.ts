@@ -2,28 +2,39 @@ import * as sdk from 'matrix-js-sdk'
 import { logger } from 'matrix-js-sdk/lib/logger.js'
 import { autoJoinRooms } from './messages.js'
 
-export { startClient }
+export { startClients }
 
 logger.disableAll()
 
-async function startClient(userId: string, accessToken: string) {
+type Auth = {
+  userId: string
+  accessToken: string
+}
+
+function createAuthClient({ userId, accessToken }: Auth) {
   const baseUrl = process.env.MATRIX_HOST
 
   if (!baseUrl) {
     throw new Error('MATRIX_HOST is not set')
   }
 
-  const client = sdk.createClient({
+  return sdk.createClient({
     baseUrl,
     userId,
     accessToken,
   })
+}
 
-  autoJoinRooms(client)
+async function startClients({ user, bot }: { user: Auth; bot: Auth }) {
+  const userClient = createAuthClient(user)
+  const botClient = createAuthClient(bot)
 
-  await client.startClient()
+  autoJoinRooms(botClient)
 
-  console.log('Matrix client started')
+  await botClient.startClient()
+  console.log('Matrix bot client started')
+  await userClient.startClient()
+  console.log('Matrix user client started')
 
-  return client
+  return { userClient, botClient }
 }
