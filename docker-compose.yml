@@ -1,6 +1,6 @@
 services:
   transcriber:
-    image: ghcr.io/4350pchris/matrix-transcriptions:latest
+    image: ghcr.io/4350pchris/matrix-transcriptions:main
     restart: unless-stopped
     env_file:
       - .env
