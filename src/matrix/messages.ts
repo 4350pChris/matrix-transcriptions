@@ -8,6 +8,10 @@ type MessageCallback = (blob: Blob, sender: string) => void
 
 function receiveMessages(client: sdk.MatrixClient, callback: MessageCallback) {
   const now = Date.now()
+  const userId = client.getUserId()
+  if (!userId) {
+    throw new Error('No user ID for own user found')
+  }
   client.on(sdk.RoomEvent.Timeline, async (event, room, toStartOfTimeline) => {
     if (toStartOfTimeline) return
     const eventType = event.getType()
@@ -18,19 +22,19 @@ function receiveMessages(client: sdk.MatrixClient, callback: MessageCallback) {
     const roomId = room?.roomId
     if (!roomId) return
 
-    const sender = event.getSender()
-    if (sender === process.env.MATRIX_USER_ID) return
+    const senderId = event.getSender()
+    if (!senderId || senderId === userId) return
 
     const content = event.getContent()
-
     if (content.msgtype !== 'm.audio') return
 
     const httpUrl = client.mxcUrlToHttp(content.url)
     if (!httpUrl) return
 
+    const sender = room.getMember(senderId)?.name ?? 'Unknown User'
     const blob = await ky.get(httpUrl).blob()
 
-    callback(blob, sender ?? 'Unknown User')
+    callback(blob, sender)
   })
 }
 

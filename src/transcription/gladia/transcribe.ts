@@ -1,4 +1,5 @@
 import { client } from './client.js'
+import { getConfig, type RequestParams } from './config.js'
 import type { Summarization, Transcription } from './types/transcription.js'
 
 export { runTranscription, downloadTranscription }
@@ -42,26 +43,13 @@ type File = {
   number_of_channels: number
 }
 
-type RequestParams = {
-  audio_url: string
-  subtitles: boolean
-  diarization: boolean
-  translation: boolean
-  summarization: boolean
-  summarization_config: {
-    type: 'general' | 'bullet_points' | 'concise'
-  }
-  sentences: boolean
-  moderation: boolean
-  audio_enhancer: boolean
-  detect_language: boolean
-  enable_code_switching: boolean
-}
-
-async function startTranscribing(audioUrl: URL) {
+async function startTranscribing(
+  audioUrl: URL,
+  config: Partial<RequestParams> = {},
+) {
   const json: Partial<RequestParams> = {
     audio_url: audioUrl.toString(),
-    summarization: true,
+    ...config,
   }
   const response = await client
     .post('transcription', { json })
@@ -87,7 +75,8 @@ async function downloadTranscription(transcriptionId: string) {
 }
 
 async function runTranscription(audioUrl: URL) {
-  const { result_url } = await startTranscribing(audioUrl)
+  const config = getConfig()
+  const { result_url } = await startTranscribing(audioUrl, config)
   const resultUrl = new URL(result_url)
 
   let res = await fetchTranscription(resultUrl)

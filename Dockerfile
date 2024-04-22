@@ -19,7 +19,6 @@ COPY package.json /app/
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
 
-ENV OPENAI_API_KEY=
 ENV GLADIA_TOKEN=
 ENV MATRIX_HOST=
 ENV MATRIX_USER_ID=
