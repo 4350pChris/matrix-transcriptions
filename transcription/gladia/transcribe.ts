@@ -1,5 +1,5 @@
 import { client } from './client.js'
-import type { Transcription } from './types/transcription.js'
+import type { Summarization, Transcription } from './types/transcription.js'
 
 export { runTranscription, downloadTranscription }
 
@@ -18,14 +18,15 @@ type TranscriptionResultMetadata = {
 type TranscriptionResult = {
   metadata: TranscriptionResultMetadata
   transcription: Transcription
+  summarization?: Summarization
 }
 
 type FetchTranscriptionResponse = {
   id: string
   request_id: string
   kind: 'pre-recorded' | 'live'
-  created_at: Date
-  completed_at?: Date
+  created_at: string
+  completed_at?: string
   status: 'queued' | 'processing' | 'done' | 'error'
   file?: File
   request_params: RequestParams
@@ -47,6 +48,9 @@ type RequestParams = {
   diarization: boolean
   translation: boolean
   summarization: boolean
+  summarization_config: {
+    type: 'general' | 'bullet_points' | 'concise'
+  }
   sentences: boolean
   moderation: boolean
   audio_enhancer: boolean
@@ -57,6 +61,7 @@ type RequestParams = {
 async function startTranscribing(audioUrl: URL) {
   const json: Partial<RequestParams> = {
     audio_url: audioUrl.toString(),
+    summarization: true,
   }
   const response = await client
     .post('transcription', { json })
@@ -81,32 +86,34 @@ async function downloadTranscription(transcriptionId: string) {
   return response
 }
 
-async function runTranscription(audioUrl: URL): Promise<TranscriptionResult> {
+async function runTranscription(audioUrl: URL) {
   const { result_url } = await startTranscribing(audioUrl)
   const resultUrl = new URL(result_url)
 
-  let transcription = await fetchTranscription(resultUrl)
+  let res = await fetchTranscription(resultUrl)
 
-  while (transcription.status !== 'done') {
-    switch (transcription.status) {
+  while (res.status !== 'done') {
+    const timeElapsed = Date.now() - new Date(res.created_at).getTime()
+    const secondsElapsed = timeElapsed / 1000
+    switch (res.status) {
       case 'error':
         throw new Error('Transcription failed')
       case 'processing':
-        console.log('Transcription in progress...')
+        console.log(`(${secondsElapsed}s) Transcription in progress...`)
         break
       case 'queued':
-        console.log('Transcription queued...')
+        console.log(`(${secondsElapsed}s) Transcription queued...`)
         break
     }
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    transcription = await fetchTranscription(resultUrl)
+    await new Promise((resolve) => setTimeout(resolve, 5000))
+    res = await fetchTranscription(resultUrl)
   }
 
-  const result = transcription.result
+  const { transcription, summarization } = res.result ?? {}
 
-  if (!result) {
-    throw new Error('Transcription failed')
+  if (!transcription || !summarization) {
+    throw new Error('Transcription failed but status was done')
   }
 
-  return result
+  return { transcription, summarization }
 }

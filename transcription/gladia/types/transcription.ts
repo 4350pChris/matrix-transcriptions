@@ -19,7 +19,17 @@ export type Utterance = StartEndConfidence & {
 export type Transcription = {
   full_transcript: string
   languagues: string[]
-  // subtitles: string[]
   utterances: Utterance[]
 }
 
+export type Summarization = {
+  success: boolean
+  is_empty: boolean
+  exec_time: number
+  error: {
+    status_code: number
+    exception: string
+    message: string
+  }
+  results: string | null
+}

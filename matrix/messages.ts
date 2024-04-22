@@ -1,9 +1,10 @@
 import ky from 'ky'
 import * as sdk from 'matrix-js-sdk'
+import { KnownMembership } from 'matrix-js-sdk/lib/types.js'
 
-export { receiveMessages, sendMessage }
+export { receiveMessages, sendMessage, autoJoinRooms }
 
-type MessageCallback = (blob: Blob) => void
+type MessageCallback = (blob: Blob, sender: string) => void
 
 function receiveMessages(client: sdk.MatrixClient, callback: MessageCallback) {
   const now = Date.now()
@@ -29,8 +30,20 @@ function receiveMessages(client: sdk.MatrixClient, callback: MessageCallback) {
 
     const blob = await ky.get(httpUrl).blob()
 
-    callback(blob)
+    callback(blob, sender ?? 'Unknown User')
   })
+}
+
+function autoJoinRooms(client: sdk.MatrixClient) {
+  client.on(
+    sdk.RoomEvent.MyMembership,
+    async (room, membership, prevMembership) => {
+      if (membership === KnownMembership.Invite) {
+        await client.joinRoom(room.roomId)
+        console.log(`Auto-joined ${room.name} (id: ${room.roomId})`)
+      }
+    },
+  )
 }
 
 async function sendMessage(
