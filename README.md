@@ -36,6 +36,8 @@ You can also run the bot using Node. Make sure you have `pnpm` installed.
 There's a `.env.sample` file in the repository which you can copy to `.env` and fill in the required values.
 
 * `GLADIA_API_KEY`: The API key you get from Gladia.
+* `GLADIA_SUMMARIZATION_TYPE`: The type of summarization you want to use. Can be `general`, `bullet_points` or `concise`.
+* `SUMMARIZE`: Whether you want to summarize the transcription or not. Defaults to `true`. Can be `true` or `false`.
 * `MATRIX_HOMESERVER`: The URL of your Matrix homeserver. Something like `https://matrix.org`.
 * `MATRIX_USER_ID`: The user ID of the user account that should receive transcriptions. Most likely this will be your own user ID.
 * `MATRIX_USER_ACCESS_TOKEN`: The access token of the user account that should receive transcriptions.
