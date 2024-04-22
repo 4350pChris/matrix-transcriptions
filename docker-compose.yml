@@ -2,5 +2,6 @@ services:
   transcriber:
     image: matrix-transcriber:latest
     build: .
+    restart: unless-stopped
     env_file:
       - .env
