@@ -15,11 +15,10 @@ async function runMatrixListener() {
     !MATRIX_USER_ID ||
     !MATRIX_USER_ACCESS_TOKEN ||
     !MATRIX_BOT_ID ||
-    !MATRIX_BOT_ACCESS_TOKEN ||
-    !MATRIX_CHANNEL_ID
+    !MATRIX_BOT_ACCESS_TOKEN
   ) {
     throw new Error(
-      'MATRIX_USER_ID, MATRIX_ACCESS_TOKEN, MATRIX_BOT_ID, MATRIX_BOT_ACCESS_TOKEN or MATRIX_CHANNEL_ID is not set',
+      'MATRIX_USER_ID, MATRIX_ACCESS_TOKEN, MATRIX_BOT_ID or MATRIX_BOT_ACCESS_TOKEN is not set',
     )
   }
 
@@ -27,6 +26,10 @@ async function runMatrixListener() {
     user: { userId: MATRIX_USER_ID, accessToken: MATRIX_USER_ACCESS_TOKEN },
     bot: { userId: MATRIX_BOT_ID, accessToken: MATRIX_BOT_ACCESS_TOKEN },
   })
+
+  if (!MATRIX_CHANNEL_ID || !userClient) {
+    return
+  }
 
   receiveMessages(userClient, async (blob, sender) => {
     try {
