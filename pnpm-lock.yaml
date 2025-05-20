@@ -11,6 +11,9 @@ importers:
       '@deepgram/sdk':
         specifier: ^4.2.0
         version: 4.2.0
+      '@fal-ai/client':
+        specifier: ^1.4.0
+        version: 1.4.0
       dotenv:
         specifier: ^16.5.0
         version: 16.5.0
@@ -257,12 +260,20 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@fal-ai/client@1.4.0':
+    resolution: {integrity: sha512-fi+FUg/uiZu95KiI6F+vnTla7WwJo2dN/oX8H2Fjme/gg96EYeUVFm6ddR40tLhz0HQ39RdnCXxxiOQP9AX2fA==}
+    engines: {node: '>=18.0.0'}
+
   '@matrix-org/matrix-sdk-crypto-wasm@14.1.0':
     resolution: {integrity: sha512-vcSxHJIr6lP0Fgo8jl0sTHg+OZxZn+skGjiyB62erfgw/R2QqJl0ZVSY8SRcbk9LtHo/ZGld1tnaOyjL2e3cLQ==}
     engines: {node: '>= 18'}
 
   '@matrix-org/olm@3.2.15':
     resolution: {integrity: sha512-S7lOrndAK9/8qOtaTq/WhttJC/o4GAzdfK0MUPpo8ApzsJEC0QjtwrkC3KBXdFP1cD1MXi/mlKR7aaoVMKgs6Q==}
+
+  '@msgpack/msgpack@3.1.1':
+    resolution: {integrity: sha512-DnBpqkMOUGayNVKyTLlkM6ILmU/m/+VUxGkuQlPQVAcvreLz5jn1OlQnWd8uHKL/ZSiljpM12rjRhr51VtvJUQ==}
+    engines: {node: '>= 18'}
 
   '@types/events@3.0.3':
     resolution: {integrity: sha512-trOc4AAUThEz9hapPtSd7wf5tiQKvTtu5b371UxXdTuqzIh0ArcRspRP0i0Viu+LXstIQ1z96t1nsPxT9ol01g==}
@@ -311,6 +322,10 @@ packages:
   events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
+
+  eventsource-parser@1.1.2:
+    resolution: {integrity: sha512-v0eOBUbiaFojBu2s2NPBfYUoRR9GjcDNvCXVaqEf5vVfpIAh9f8RCo4vXTP8c63QRKCFwoLpMpTdPwwhEKVgzA==}
+    engines: {node: '>=14.18'}
 
   formdata-node@6.0.3:
     resolution: {integrity: sha512-8e1++BCiTzUno9v5IZ2J6bv4RU+3UKDmqWUQD0MIMVCd9AdhWkO1gw57oo1mNEX1dMq2EGI+FbWz4B92pscSQg==}
@@ -369,6 +384,9 @@ packages:
   retry@0.13.1:
     resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
     engines: {node: '>= 4'}
+
+  robot3@0.4.1:
+    resolution: {integrity: sha512-hzjy826lrxzx8eRgv80idkf8ua1JAepRc9Efdtj03N3KNJuznQCPlyCJ7gnUmDFwZCLQjxy567mQVKmdv2BsXQ==}
 
   sdp-transform@2.15.0:
     resolution: {integrity: sha512-KrOH82c/W+GYQ0LHqtr3caRpM3ITglq3ljGUIb8LTki7ByacJZ9z+piSGiwZDsRyhQbYBOBJgr2k6X4BZXi3Kw==}
@@ -552,9 +570,17 @@ snapshots:
   '@esbuild/win32-x64@0.25.4':
     optional: true
 
+  '@fal-ai/client@1.4.0':
+    dependencies:
+      '@msgpack/msgpack': 3.1.1
+      eventsource-parser: 1.1.2
+      robot3: 0.4.1
+
   '@matrix-org/matrix-sdk-crypto-wasm@14.1.0': {}
 
   '@matrix-org/olm@3.2.15': {}
+
+  '@msgpack/msgpack@3.1.1': {}
 
   '@types/events@3.0.3': {}
 
@@ -620,6 +646,8 @@ snapshots:
 
   events@3.3.0: {}
 
+  eventsource-parser@1.1.2: {}
+
   formdata-node@6.0.3: {}
 
   fsevents@2.3.3:
@@ -676,6 +704,8 @@ snapshots:
   resolve-pkg-maps@1.0.0: {}
 
   retry@0.13.1: {}
+
+  robot3@0.4.1: {}
 
   sdp-transform@2.15.0: {}
 

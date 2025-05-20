@@ -1,8 +1,6 @@
 import { createClient } from '@deepgram/sdk'
 import { TranscribeAudio } from '../types.js'
 
-export { client }
-
 const DEEPGRAM_API_KEY = process.env.DEEPGRAM_API_KEY
 
 const client = createClient(DEEPGRAM_API_KEY)
@@ -14,9 +12,8 @@ export const transcribeAudio: TranscribeAudio = async (
   const buffer = Buffer.from(arrayBuffer);
   const { result, error } = await client.listen.prerecorded.transcribeFile(buffer, {
     model: 'nova-3',
-    language: 'de',
+    language: 'multi',
     smart_format: true,
-    summarize: true,
     punctuate: true,
   })
   if (error) {

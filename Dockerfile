@@ -20,6 +20,8 @@ COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
 
 ENV GLADIA_TOKEN=
+ENV DEEPGRAM_API_KEY=
+ENV FALAI_API_KEY=
 ENV MATRIX_HOST=
 ENV MATRIX_USER_ID=
 ENV MATRIX_USER_ACCESS_TOKEN=
