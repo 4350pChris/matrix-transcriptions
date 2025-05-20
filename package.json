@@ -14,17 +14,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.5.0",
     "formdata-node": "^6.0.3",
-    "ky": "^1.2.3",
+    "ky": "^1.8.1",
     "matrix-js-sdk": "^37.5.0",
-    "zod": "^3.23.0"
+    "zod": "^3.25.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.7.0",
-    "@types/node": "^20.12.7",
-    "tsx": "^4.7.2",
-    "typescript": "^5.4.5"
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.15.19",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   },
   "packageManager": "pnpm@10.11.0",
   "volta": {

@@ -9,32 +9,32 @@ importers:
   .:
     dependencies:
       dotenv:
-        specifier: ^16.4.5
+        specifier: ^16.5.0
         version: 16.5.0
       formdata-node:
         specifier: ^6.0.3
         version: 6.0.3
       ky:
-        specifier: ^1.2.3
+        specifier: ^1.8.1
         version: 1.8.1
       matrix-js-sdk:
         specifier: ^37.5.0
         version: 37.5.0
       zod:
-        specifier: ^3.23.0
+        specifier: ^3.25.7
         version: 3.25.7
     devDependencies:
       '@biomejs/biome':
-        specifier: ^1.7.0
+        specifier: ^1.9.4
         version: 1.9.4
       '@types/node':
-        specifier: ^20.12.7
-        version: 20.17.48
+        specifier: ^22.15.19
+        version: 22.15.19
       tsx:
-        specifier: ^4.7.2
+        specifier: ^4.19.4
         version: 4.19.4
       typescript:
-        specifier: ^5.4.5
+        specifier: ^5.8.3
         version: 5.8.3
 
 packages:
@@ -256,8 +256,8 @@ packages:
   '@types/events@3.0.3':
     resolution: {integrity: sha512-trOc4AAUThEz9hapPtSd7wf5tiQKvTtu5b371UxXdTuqzIh0ArcRspRP0i0Viu+LXstIQ1z96t1nsPxT9ol01g==}
 
-  '@types/node@20.17.48':
-    resolution: {integrity: sha512-KpSfKOHPsiSC4IkZeu2LsusFwExAIVGkhG1KkbaBMLwau0uMhj0fCrvyg9ddM2sAvd+gtiBJLir4LAw1MNMIaw==}
+  '@types/node@22.15.19':
+    resolution: {integrity: sha512-3vMNr4TzNQyjHcRZadojpRaD9Ofr6LsonZAoQ+HMUa/9ORTPoxVIw0e0mpqWpdjj8xybyCM+oKOUH2vwFu/oEw==}
 
   '@types/retry@0.12.0':
     resolution: {integrity: sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==}
@@ -351,8 +351,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@6.19.8:
-    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
   unhomoglyph@1.0.6:
     resolution: {integrity: sha512-7uvcWI3hWshSADBu4JpnyYbTVc7YlhF5GDW/oPD5AxIxl34k4wXR3WDkPnzLxkN32LiTCTKMQLtKVZiwki3zGg==}
@@ -484,9 +484,9 @@ snapshots:
 
   '@types/events@3.0.3': {}
 
-  '@types/node@20.17.48':
+  '@types/node@22.15.19':
     dependencies:
-      undici-types: 6.19.8
+      undici-types: 6.21.0
 
   '@types/retry@0.12.0': {}
 
@@ -596,7 +596,7 @@ snapshots:
 
   typescript@5.8.3: {}
 
-  undici-types@6.19.8: {}
+  undici-types@6.21.0: {}
 
   unhomoglyph@1.0.6: {}
 
