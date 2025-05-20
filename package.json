@@ -17,7 +17,7 @@
     "dotenv": "^16.4.5",
     "formdata-node": "^6.0.3",
     "ky": "^1.2.3",
-    "matrix-js-sdk": "^32.0.0",
+    "matrix-js-sdk": "^37.5.0",
     "zod": "^3.23.0"
   },
   "devDependencies": {
@@ -26,7 +26,7 @@
     "tsx": "^4.7.2",
     "typescript": "^5.4.5"
   },
-  "packageManager": "pnpm@8.6.12",
+  "packageManager": "pnpm@10.11.0",
   "volta": {
     "node": "20.12.2"
   }
