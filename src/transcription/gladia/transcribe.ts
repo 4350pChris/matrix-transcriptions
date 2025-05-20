@@ -1,3 +1,4 @@
+import { TranscribeAudio } from '../types.js'
 import { client } from './client.js'
 import { getConfig, type RequestParams } from './config.js'
 import type { Summarization, Transcription } from './types/transcription.js'
@@ -74,7 +75,7 @@ async function downloadTranscription(transcriptionId: string) {
   return response
 }
 
-async function runTranscription(audioUrl: URL) {
+async function runTranscription(audioUrl: URL): ReturnType<TranscribeAudio> {
   const config = getConfig()
   const { result_url } = await startTranscribing(audioUrl, config)
   const resultUrl = new URL(result_url)
@@ -104,5 +105,5 @@ async function runTranscription(audioUrl: URL) {
     throw new Error('Transcription failed but status was done')
   }
 
-  return { transcription, summarization }
+  return { transcription: transcription.full_transcript, summarization: summarization.results }
 }

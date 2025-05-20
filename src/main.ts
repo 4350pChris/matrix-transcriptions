@@ -1,5 +1,6 @@
 import 'dotenv/config'
-import { transcribeAudio } from './transcription/gladia/index.js'
+import { transcribeAudio as gladia } from './transcription/gladia/index.js'
+import {transcribeAudio as deepgram } from './transcription/deepgram/index.js'
 import { runMatrixTranscriber } from './matrix/index.js'
 
 async function runForever() {
@@ -9,7 +10,8 @@ async function runForever() {
 }
 
 async function main() {
-  await runMatrixTranscriber(transcribeAudio)
+  const fn = deepgram;
+  await runMatrixTranscriber(fn)
 
   await runForever()
 }
