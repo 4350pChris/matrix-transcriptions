@@ -11,7 +11,7 @@ async function upload(file: Options['body'] | string): Promise<URL> {
   const audio = typeof file === 'string' ? await fileFromPath(file) : file
   const body = new FormData()
   body.set('audio', audio)
-  const response = await client.post('upload', { body }).json<UploadResponse>()
+  const response = await client.post('upload', { body: body as BodyInit }).json<UploadResponse>()
   const { audio_url } = response
   return new URL(audio_url)
 }

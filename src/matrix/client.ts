@@ -5,7 +5,7 @@ import { envs } from './env.js'
 
 export { startClients }
 
-logger.disableAll()
+(logger as unknown as { disableAll: () => void }).disableAll()
 
 type Auth = {
   userId: string
