@@ -3,11 +3,11 @@ import { TranscribeAudio } from '../types.js'
 
 const DEEPGRAM_API_KEY = process.env.DEEPGRAM_API_KEY
 
-const client = createClient(DEEPGRAM_API_KEY)
 
 export const transcribeAudio: TranscribeAudio = async (
   blob
 ): ReturnType<TranscribeAudio> => {
+  const client = createClient(DEEPGRAM_API_KEY)
   const arrayBuffer = await blob.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
   const { result, error } = await client.listen.prerecorded.transcribeFile(buffer, {

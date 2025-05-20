@@ -3,9 +3,9 @@ import type { TranscribeAudio } from '../types.js';
 
 const FALAI_API_KEY = process.env.FALAI_API_KEY;
 
-fal.config({ credentials: FALAI_API_KEY })
 
 export const transcribeAudio: TranscribeAudio = async (blob): ReturnType<TranscribeAudio> => {
+  fal.config({ credentials: FALAI_API_KEY })
   const result = await fal.subscribe('fal-ai/wizper', {
     input: {
       audio_url: blob,
