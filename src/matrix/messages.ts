@@ -1,6 +1,7 @@
 import ky from 'ky'
 import * as sdk from 'matrix-js-sdk'
 import { KnownMembership } from 'matrix-js-sdk/lib/types.js'
+import { envs } from './env.js'
 
 export { receiveMessages, sendMessage, autoJoinRooms }
 
@@ -28,11 +29,15 @@ function receiveMessages(client: sdk.MatrixClient, callback: MessageCallback) {
     const content = event.getContent()
     if (content.msgtype !== 'm.audio') return
 
-    const httpUrl = client.mxcUrlToHttp(content.url)
+    const httpUrl = client.mxcUrlToHttp(content.url, undefined, undefined, undefined, undefined, undefined, true)
     if (!httpUrl) return
 
     const sender = room.getMember(senderId)?.name ?? 'Unknown User'
-    const blob = await ky.get(httpUrl).blob()
+    const blob = await ky.get(httpUrl, {
+      headers: {
+        Authorization: `Bearer ${envs.MATRIX_USER_ACCESS_TOKEN}`,
+      },
+    }).blob()
 
     callback(blob, sender)
   })

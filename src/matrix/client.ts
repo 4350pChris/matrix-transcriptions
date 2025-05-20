@@ -7,11 +7,6 @@ export { startClients }
 
 (logger as unknown as { disableAll: () => void }).disableAll()
 
-type Auth = {
-  userId: string
-  accessToken: string
-}
-
 async function startClients() {
   const {
     MATRIX_HOST,
